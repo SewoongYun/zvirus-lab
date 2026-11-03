@@ -1,0 +1,25 @@
+{
+  "name": "좀비바이러스 연구실 · 확통 방탈출",
+  "short_name": "좀비연구실",
+  "description": "Z-Virus로 봉쇄된 연구동에서 확률과 통계 수학 자물쇠를 풀고 해독제를 완성해 탈출하는 방탈출",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050805",
+  "theme_color": "#050805",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
