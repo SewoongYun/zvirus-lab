@@ -1,7 +1,7 @@
-/* 좀비바이러스 연구실 — 공통 코드 (14차) */
+/* 좀비바이러스 연구실 — 공통 코드 (15차) */
 (function(){
 'use strict';
-const ZV=window.ZV={VER:14,KEY:'starshard_math_escape'};   /* 저장 키는 차수가 바뀌어도 그대로 → 이전 차수 기록이 이어짐 */
+const ZV=window.ZV={VER:15,KEY:'starshard_math_escape'};   /* 저장 키는 차수가 바뀌어도 그대로 → 이전 차수 기록이 이어짐 */
 ZV.$=(s,r=document)=>r.querySelector(s);
 ZV.esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 ZV.clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
@@ -21,7 +21,7 @@ ZV.TBL={0.5:0.1915,1:0.3413,1.5:0.4332,2:0.4772,2.5:0.4938,3:0.4987};  /* 표준
 ZV.ZS=[0.5,1,1.5,2,2.5,3];
 
 /* ---------- 저장 ---------- */
-const DEFSET={part:'all',partNo:1,sound:true,music:true,effects:true,vol:.6,bright:1,lock:true,showAns:false,limitMin:0,hintWait:20,hintPenalty:0,cur:'2022',pin:'0000',off:{},params:{},glow:true};
+const DEFSET={part:'all',partNo:1,sound:true,music:true,effects:true,vol:.6,bright:1,lock:true,showAns:false,limitMin:0,hintWait:20,hintPenalty:0,tension:true,cur:'2022',pin:'0000',off:{},params:{},glow:true};
 ZV.S={settings:JSON.parse(JSON.stringify(DEFSET)),profiles:{},cur:null,lastVer:ZV.VER};
 ZV.load=function(){try{const d=JSON.parse(localStorage.getItem(ZV.KEY)||'null');if(d){const S=ZV.S;S.settings=Object.assign(JSON.parse(JSON.stringify(DEFSET)),d.settings||{});S.settings.off=S.settings.off||{};S.settings.params=S.settings.params||{};S.profiles=d.profiles||{};S.cur=d.cur||null;}}catch(e){}};
 ZV.save=function(){try{ZV.S.lastVer=ZV.VER;localStorage.setItem(ZV.KEY,JSON.stringify(ZV.S));}catch(e){}};

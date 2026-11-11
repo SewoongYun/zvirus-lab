@@ -122,6 +122,11 @@ A.sfx=function(name,delay=0){if(!S().sound||S().effects===false||!A.ctx||A.ctx.s
  else if(name==='door'){burst(T,5200,.7,1.5,.5);tone(T,'sawtooth',130,55,1.1,.12,520);tone(T+.05,'sine',60,36,1.3,.5);burst(T+.85,700,2.5,.2,.6);tone(T+.85,'sine',80,40,.5,.6);}
  /* 13차: 틀린 암호·순서(삐-삐-) / 전원 복구(웅— 올라가는 소리) */
  else if(name==='buzz'){tone(T,'square',150,140,.28,.09,1100);tone(T+.34,'square',150,140,.38,.09,1100);}
- else if(name==='power'){burst(T,1800,2,.25,.35);tone(T,'sawtooth',45,180,1.3,.11,650);tone(T+.9,'sine',120,240,.6,.18);}};
+ else if(name==='power'){burst(T,1800,2,.25,.35);tone(T,'sawtooth',45,180,1.3,.11,650);tone(T+.9,'sine',120,240,.6,.18);}
+ else if(name==='heart'){tone(T,'sine',70,38,.16,.6);tone(T+.22,'sine',60,34,.2,.42);}
+ else if(name==='knock'){[0,.28,.56].forEach(d=>{tone(T+d,'sine',95,45,.22,.7);burst(T+d,300,1.5,.12,.5);});}
+ else if(name==='static'){burst(T,3200,.6,.5,.22);burst(T+.18,6000,1,.3,.16);}
+ else if(name==='paper'){burst(T,4200,1.2,.16,.2);burst(T+.12,2600,1.5,.2,.16);}
+ else if(name==='sting'){tone(T,'sine',220,208,.9,.14);tone(T,'sine',311,300,.9,.1);}};
 ZV.BACT.sndVol=t=>A.setVol(+t.value/100);
 })();

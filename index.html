@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#050805">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
-<title>좀비바이러스 연구실 · 확통 방탈출 14차</title>
+<title>좀비바이러스 연구실 · 확통 방탈출 15차</title>
 <style>
 :root{--bg:#070b08;--card:#e2e9e0;--ink:#101a14;--mut:#44564a;--line:#8da08f;--g:#2f7d3a;--g2:#1b4d24;--acid:#e6f27c;--warn:#d98a1c;--bad:#d23f3f;--soft:#cfd9cd;--gold:#ffd84a;--tox:#7be04a;--sb:1;--vg:.5;
   --font:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR','Segoe UI',system-ui,sans-serif}
@@ -311,6 +311,26 @@ b.n,.q b{color:#7a3a00;background:#ffe98a;border-radius:3px;padding:0 4px}
 .hintbox{margin-top:12px}.hintbox .h{background:#eef3b4;border:2px solid #b3b83a;border-radius:8px;padding:8px 12px;margin:6px 0;font-size:15px}
 .demo{margin-top:8px;padding:6px 10px;background:#f1d0d0;border:2px dashed var(--bad);border-radius:8px;font-size:14px}
 @media (max-width:560px){.q{font-size:18px}.slot{width:calc(50% - 6px)}.wrap{padding:0 12px 56px}.ring{width:210px;height:210px}.gn{width:38px}.tbl td,.tbl th{padding:3px 5px;font-size:12px}.narr{font-size:16px}.dlgx{font-size:17px}}
+/* 15차: 선택지 · 건너뛰기 · 기록물 · 긴장감 */
+.dlgskip{position:absolute;top:10px;right:10px;z-index:6;background:rgba(0,0,0,.6);color:#cfe6c8;border:1px solid #2f7d3a;border-radius:4px;padding:6px 10px;font-size:13px;cursor:pointer}
+.dlgv.asking .dlgskip,.dlgv.asking .nx{display:none}
+.dlgch{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.chb{background:#0d1a10;color:#eaffe0;border:2px solid var(--tox);border-radius:6px;padding:11px 12px;font-size:16px;font-weight:700;text-align:left;cursor:pointer}
+.chb:hover,.chb:active{background:#1c3a22}
+.recv{background:rgba(0,0,0,.86)!important}.recw{width:min(460px,94%);margin:auto}
+.recnew{color:#ffd84a;font-weight:800;text-align:center;margin-bottom:8px;letter-spacing:.06em}
+.paper{background:#ece5d2;color:#2a2418;border-radius:3px;padding:16px 18px;box-shadow:0 6px 24px rgba(0,0,0,.6);transform:rotate(-.6deg);margin:6px 0 14px;font-size:15.5px;line-height:1.7}
+.paper .pno{font-size:12px;color:#8a7a55;letter-spacing:.12em}.paper h3{margin:2px 0 8px;font-size:18px;border-bottom:2px solid #2a2418;padding-bottom:4px}
+.paper mark{background:#ffe27a;padding:0 2px}.paper .hand{font-family:'Nanum Pen Script','Gaegu',cursive;font-size:1.15em;color:#3a2d6b}
+.filebox{max-height:86vh;overflow:auto}.frow{margin:6px 0;padding:6px 8px;border:1px solid #b9c9b5;border-radius:6px}.frow.none{opacity:.55}.frow summary{cursor:pointer}
+#fileB.got{color:#ffd84a;border-color:#ffd84a}
+.logo2.endA{color:#ffe27a}.logo2.endB{color:#ff8a8a}.logo2.endC{color:#b9c9d6}
+.tens{position:absolute;inset:0;pointer-events:none;z-index:4;opacity:0;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(160,0,0,.55) 100%)}
+.frame[data-tn="2"] .tens{animation:tnb 5s ease-in-out infinite}.frame[data-tn="3"] .tens{animation:tnb 2.6s ease-in-out infinite}
+@keyframes tnb{0%,100%{opacity:0}50%{opacity:.35}}
+.frame.tn-pulse .tens{animation:tnp .82s ease-out 5}@keyframes tnp{0%{opacity:.8}100%{opacity:0}}
+.frame.tn-flick #scene{animation:tnf .9s steps(1) 1}@keyframes tnf{0%{filter:brightness(.15)}15%{filter:brightness(1)}30%{filter:brightness(.1)}55%{filter:brightness(.8)}70%{filter:brightness(.2)}100%{filter:brightness(var(--sb))}}
+.frame.tn-jolt{animation:evsh .3s linear 3}
 </style>
 </head>
 <body class="b1">
@@ -321,6 +341,7 @@ b.n,.q b{color:#7a3a00;background:#ffe98a;border-radius:3px;padding:0 4px}
 <script src="js/audio.js"></script>
 <script src="js/imgs.js"></script>
 <script src="js/scenes.js"></script>
+<script src="js/story.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

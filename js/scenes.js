@@ -137,7 +137,7 @@ ZV.fixStage=function(st){const G=ZV.G(),F=G.flags,m=ZV.mech(st),pids=ZV.stagePid
  if(!F.v13){F.v13=1;ch=true;}
  if(ch)ZV.save();};
 /* 자물쇠를 풀면 받는 것 (구역마다 다름). 받은 자물쇠는 'rw:' 표시 → 다시 주지 않음. 돌려주는 값 = 나레이션 줄 */
-const STORY5=['바닥에 떨어진 환자 기록: "피험자 12번 — 잠복기 평균 3.2일. 밤사이 결박을 풀고 사라짐."','찢어진 기록지: "치사율이 아니라 전염률이 문제다. 한 명이 평균 몇 명을 감염시키는가……."','손으로 쓴 메모: "분포를 알면 막을 수 있다. 우리에겐 시간이 없을 뿐." — 한 소장'];
+const STORY5=['바닥에 떨어진 환자 기록: "피험자 12번 — 잠복기 평균 3.2일. 밤사이 결박이 풀린 채 사라짐."','찢어진 기록지: "치사율이 아니라 전염률이 문제다. 한 명이 평균 몇 명을 감염시키는가……."','손으로 쓴 메모: "분포를 알면 막을 수 있다. 우리에겐 시간이 없을 뿐." — 한 소장'];
 function grant(st,pid){const G=ZV.G(),F=G.flags,m=ZV.mech(st),W=ZV.wallsFor(st),role=Object.keys(W.pidOf).find(r=>W.pidOf[r]===pid),pids=ZV.stagePids(st),idx=pids.indexOf(pid);
  const prev=pids.filter(p=>p!==pid&&F['rw:'+p]).length;F['rw:'+pid]=1;
  if(m==='classic'){if(role==='desk'&&W.hasKey){addItem('key');return['서랍 안에서 작은 놋쇠 열쇠를 찾았다. 허리춤 열쇠고리에 걸었다.',['dojin','오른쪽 벽의 철제 보관함 열쇠일 거야.']];}addItem('piece');return['해독제 앰플 조각을 손에 넣었다. 열쇠고리 주머니에 넣었다.'];}
@@ -228,7 +228,7 @@ function drawScene(){const st=ZV.curStage(),G=ZV.G(),svg=$('#scene');if(!svg||!s
   else if(key==='alcove'&&!solved&&lampHeld)ov+=`<circle cx="${cx}" cy="${cy+hh*.1}" r="${w*.34}" fill="url(#glw)" opacity=".3" style="mix-blend-mode:screen"/>`;
   if(openShown&&(key==='door'||key==='chest'))ov='';
   if(solved&&key!=='door'&&!(openShown&&key==='chest'))ov+=`<circle cx="${cx}" cy="${cy}" r="${Math.min(w,hh)*.3}" fill="url(#gl2)" opacity=".7" style="mix-blend-mode:screen"/>`+padOpen(cx,cy,!!(ZV.fxNew&&ZV.fxNew[key+st.id]),clamp(Math.min(w,hh)/14,1.3,2.2));
-  const todo=(p.act.k==='pz'&&!solved)||p.act.k==='lamp'||(p.act.k==='door'&&done)||(p.act.k==='tgt'&&tgtTodo(st,m));
+  const todo=(p.act.k==='pz'&&!solved)||p.act.k==='lamp'||(p.act.k==='door'&&done)||(p.act.k==='tgt'&&tgtTodo(st,m))||(p.act.k==='look'&&ZV.recHere&&ZV.recHere(st,key));
   const mw=Math.max(w,MINHIT),mh=Math.max(hh,MINHIT);
   o+=`<g class="hot ih" data-act="prop" data-p="${p.id}"><rect class="hl" x="${x}" y="${y}" width="${w}" height="${hh}" rx="1" fill="rgba(160,255,140,.10)" stroke="rgba(160,255,140,.6)" stroke-width=".35"/>${ov}<rect x="${cx-mw/2}" y="${cy-mh/2}" width="${mw}" height="${mh}" fill="transparent"/>${glowOn&&todo?`<circle class="spk" cx="${cx}" cy="${cy}" r="1.6"/>`:''}</g>`;}
  for(let i=0;i<7;i++)o+=`<circle class="dust" cx="${(hs(i,sd+4)*120).toFixed(1)}" cy="${(8+hs(i,sd+5)*140).toFixed(1)}" r=".3" style="animation-delay:-${(hs(i,sd+6)*9).toFixed(1)}s" pointer-events="none"/>`;
@@ -299,7 +299,7 @@ ZV.dlgTap=function(){if(!DL)return;if(DL.shown<DL.full.length){DL.shown=DL.full.
 ZV.renderGame=function(){ZV.screen='game';ZV.applyBody&&ZV.applyBody();const st=ZV.curStage();ZV.AUDIO&&ZV.AUDIO.mood(st.ch);
  $('#app').innerHTML=`<div class="game"><div class="frame" id="frame"><svg id="scene" viewBox="0 0 120 160" preserveAspectRatio="xMidYMid slice"></svg><div class="dark"></div><div class="vig"></div>
  <button class="nav l" data-act="navL" aria-label="왼쪽 벽">◀</button><button class="nav r" data-act="navR" aria-label="오른쪽 벽">▶</button>
- <div class="hud tl"><button class="hb" data-act="mapOpen">MAP</button><span class="hb dim" id="chn"></span></div>
+ <div class="hud tl"><button class="hb" data-act="mapOpen">MAP</button><button class="hb" id="fileB" data-act="fileOpen">FILE</button><span class="hb dim" id="chn"></span></div>
  <div class="hud tr"><span class="hb dim" data-tm="1"></span><button class="hb" data-act="menuOpen">MENU</button></div>
  <div class="wname" id="wname"></div><div class="dots"><i class="dot"></i><i class="dot"></i><i class="dot"></i></div></div>
  <div class="narr" id="narr" data-act="narrTap"></div><div class="inv" id="inv"></div></div>`;
@@ -309,7 +309,7 @@ ZV.renderGame=function(){ZV.screen='game';ZV.applyBody&&ZV.applyBody();const st=
  fr.addEventListener('pointerdown',e=>{mv(e);sx=e.clientX;sy=e.clientY;});
  fr.addEventListener('pointerup',e=>{if(sx===null)return;const dx=e.clientX-sx,dy=e.clientY-sy;sx=null;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5){ZV.swiped=Date.now();ZV.navWall(dx<0?1:-1);}});
  fr.addEventListener('pointercancel',()=>{sx=null;});
- ZV.fixStage(st);ZV.drawScene();ZV.drawInv();ZV.tickTm&&ZV.tickTm();};
+ ZV.fixStage(st);ZV.drawScene();ZV.drawInv();ZV.tickTm&&ZV.tickTm();ZV.fileUpd&&ZV.fileUpd();ZV.tension&&ZV.tension();};
 addEventListener('resize',()=>{if(ZV.screen==='game')ZV.drawScene();});
 ZV.enterStage=function(i,first){const G=ZV.G();G.si=i;G.wall=0;if(first)G.items=[];G.sel=null;ZV.save();ZV.renderGame();const st=ZV.curStage();
  if(!G.seen[st.id]){G.seen[st.id]=1;ZV.save();ZV.say(st.intro,()=>ZV.evCheck('enter'));}else ZV.say(`${st.name}. 문을 열려면 이 방의 자물쇠를 모두 풀어야 한다.`);};
@@ -332,7 +332,7 @@ ZV.tapProp=function(pid){if(ZV.swiped&&Date.now()-ZV.swiped<350)return;if(narr.b
  const wrongUse=()=>{const n=ITEM[sel].n;unsel();ZV.say(`${ZV.jo(n,'은','는')} 여기에 쓸 수 없는 것 같다.`);};
  /* 5구역 정전: 손전등을 찾기 전에는 손전등 말고 아무것도 만질 수 없다 */
  if(blackout(st)&&!hasItem('lamp')&&a.k!=='lamp'){ZV.say(['너무 어둡다. 손을 더듬어도 아무것도 잡히지 않는다.',['dojin','손전등…… 정면 책상 근처에서 뭔가 반짝였던 것 같은데.']]);return;}
- if(a.k==='look'){if(sel&&sel!=='lamp'){wrongUse();return;}ZV.say(imT||a.text||'특별한 것은 없는 것 같다.');return;}
+ if(a.k==='look'){if(sel&&sel!=='lamp'){wrongUse();return;}if(ZV.recTry&&ZV.recTry(st,p.role||p.id,imT||a.text))return;ZV.say(imT||a.text||'특별한 것은 없는 것 같다.');return;}
  if(a.k==='lamp'){if(G.flags['lamp:'+st.id]){ZV.say('이미 가져왔다.');return;}G.flags['lamp:'+st.id]=1;addItem('lamp');ZV.save();ZV.drawScene();ZV.drawInv();ZV.say(['손전등을 손에 넣었다. 허리춤에 찼다.',['dojin','이걸로 어두운 곳도 볼 수 있겠어.']]);return;}
  const c={st,G,a,sel,hot,hx,hy,IMX,unsel,wrongUse};
  if(a.k==='tgt'){tapTarget(c);return;}
