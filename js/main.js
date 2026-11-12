@@ -40,7 +40,7 @@ ZV.openPuzzle=function(pid){const R=ZV.RM[pid],P=ZV.getParams(pid),B=R.build(P),
  <div class="fb ${st.solved?'ok':''}" id="fb">${st.solved?'이미 푼 자물쇠예요. (정답 확인 완료)':''}</div>
  ${ZV.S.settings.showAns?`<div class="demo">시연용 정답 표시: <b>${ZV.ansText(B.ans)}</b></div>`:''}
  <div class="hintbox"><div id="hints"></div><button class="btn ghost sm" data-act="hint" id="hbtn"></button></div><div id="after"></div></section></div>`;
- const b=ZV.BENCH[B.bench.type];$('#bench').innerHTML=b.html(B.bench);b.init(B.bench);drawSteps();drawHints();
+ const b=ZV.BENCH[B.bench.type];$('#bench').innerHTML=b.html(B.bench);b.init(B.bench);drawSteps();drawHints();if(st.solved&&ZV.solHTML)$('#after').innerHTML=ZV.solHTML();
  const a=$('#ans');if(a&&!st.solved)a.addEventListener('keydown',e=>{if(e.key==='Enter')submit();});};
 function submit(){if(!ZV.CUR)return;const id=ZV.CUR.id,st=ZV.rs(id);if(st.solved)return;const raw=$('#ans').value.trim(),res=ZV.judge(ZV.CUR.B,raw),fb=$('#fb');
  if(raw){st.tries++;st.inputs.push({t:Date.now(),v:raw,ok:res.ok});if(!res.ok)st.wrong.push(raw);}
